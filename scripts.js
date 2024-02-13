@@ -13,7 +13,7 @@ const add = document.querySelector(".add");
 const subtract = document.querySelector(".subtract");
 const multiply = document.querySelector(".multiply");
 const divide = document.querySelector(".divide");
-
+const equal = document.querySelector(".equal")
 display.textContent = "";
 
 zero.addEventListener("click", function() {currentEquation(0)} );
@@ -30,8 +30,38 @@ add.addEventListener("click", function() {currentEquation("+")} );
 subtract.addEventListener("click", function() {currentEquation("-")});
 multiply.addEventListener("click", function() {currentEquation("*")});
 divide.addEventListener("click", function() {currentEquation("/")});
+equal.addEventListener("click", function() { console.log(evaluate(display.textContent))})
 function currentEquation(number) {
     number = number.toString();
     display.textContent = display.textContent + number
 }
+
+function evaluate(equation) {
+    let equationInOrder = []
+    let currentValue = null
+    for (value in equation) {
+        if (Number.isInteger(parseInt(equation[value]))) {
+            console.log(equation[value], "add numbers")
+            if (currentValue === null) {
+                currentValue = equation[value]
+            }
+            else {
+                currentValue += equation[value].toString();
+                Number(currentValue)
+            }
+        
+        }
+        else  {
+            
+            equationInOrder.push(currentValue)
+            equationInOrder.push(equation[value])
+            currentValue = null
+        }
+    }
+    if (!(currentValue === null)) {
+        equationInOrder.push(currentValue)
+    }
+    return equationInOrder
+}
+
 
