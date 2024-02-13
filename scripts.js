@@ -61,7 +61,46 @@ function evaluate(equation) {
     if (!(currentValue === null)) {
         equationInOrder.push(currentValue)
     }
-    return equationInOrder
+    let numbers = []
+    let currentOperator = ""
+    
+    for (let value = 0; value in equationInOrder; value++) {
+        if (Number.isInteger(parseInt(equationInOrder[value]))) {
+            numbers.push(parseInt(equationInOrder[value]))
+            if (numbers.length === 2 && currentOperator.length === 1) {
+                console.log(numbers, "beforeOperation")
+                switch(currentOperator) {
+                    case "+":
+                        valueAfterOperation = numbers[0] + numbers[1]
+                        numbers = [valueAfterOperation]
+                        currentOperator = ""
+                        break
+                    case "-":
+                        valueAfterOperation = numbers[0] - numbers[1]
+                        numbers = [valueAfterOperation]
+                        currentOperator = ""
+                        break
+                    case "*":
+                        valueAfterOperation = numbers[0] * numbers[1]
+                        numbers = [valueAfterOperation]
+                        currentOperator = ""
+                        break
+                    case "/":
+                        valueAfterOperation = numbers[0] / numbers[1]
+                        numbers = [valueAfterOperation]
+                        currentOperator = ""
+                        break
+                    }
+            }
+        }
+        else {
+            currentOperator = equationInOrder[value]
+        }
+        
+    }
+    display.textContent = numbers[0]
+    return equationInOrder 
 }
+
 
 
